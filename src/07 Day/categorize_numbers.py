@@ -19,7 +19,6 @@ import random
 
 def categorize_numbers(numbers):
     ''' From the list create sublists with positive, negative and zero values '''
-    numbers.sort()
     categories = {'positive': [],
                   'negative' : [],
                   'zero' : []}
