@@ -32,11 +32,11 @@
 '''
 import timeit
 
-PREFORMANCE_SAMPLE = 10000
+PREFORMANCE_SAMPLE = 1000
 NUMBER_OF_RUNS = 1000
 
 def fibonacci_list_append(n):
-    ''' Fibonacci '''
+    ''' Fibonacci iterative '''
     fibonacci_list = [0, 1]
 
     for i in range(2, n):
@@ -44,23 +44,44 @@ def fibonacci_list_append(n):
 
     return fibonacci_list
 
+def fibonacci_recursive(n, fibonacci_list):
+    ''' Fibonacci recursive '''
+    if n > 1:
+        fibonacci_recursive(n-1, fibonacci_list)
+        fibonacci_list.append(fibonacci_list[-1] + fibonacci_list[-2])
+
+    return fibonacci_list
+
 def wrapper_fibonacci_list_append():
     fibonacci_list_append(PREFORMANCE_SAMPLE)
+
+def wrapper_fibonacci_recursive():
+    fibonacci_recursive(PREFORMANCE_SAMPLE, [0,1])
 
 def measure_performance():
     ''' Measure performances '''
     execution_time_fibonacci_list_append = round(timeit.timeit(wrapper_fibonacci_list_append, number=NUMBER_OF_RUNS), 10)
     average_time_fibonacci_list_append = execution_time_fibonacci_list_append / NUMBER_OF_RUNS
 
+    execution_time_fibonacci_recursive = round(timeit.timeit(wrapper_fibonacci_recursive, number=NUMBER_OF_RUNS), 10)
+    average_time_fibonacci_recursive = execution_time_fibonacci_recursive / NUMBER_OF_RUNS
+
     print(f"\nPerformances measured on a list of {PREFORMANCE_SAMPLE} items, " \
           f"running code {NUMBER_OF_RUNS} times.\n")
     print(f"Total execution time using list: {execution_time_fibonacci_list_append} seconds")
     print(f"Average time per execution: {average_time_fibonacci_list_append} seconds\n")
+
+    print(f"Total execution time using recursion: {execution_time_fibonacci_recursive} seconds")
+    print(f"Average time per execution: {average_time_fibonacci_recursive} seconds\n")
 
 if __name__ == "__main__":
     SEQUENCE_LENGTH = 100
     fibonacci_list = fibonacci_list_append(SEQUENCE_LENGTH)
     print(fibonacci_list)
     print(f"\nThe {SEQUENCE_LENGTH}-th number in the Fibonacci seq. is:\n{fibonacci_list[SEQUENCE_LENGTH-1]}\n")
+
+    fibonacci_list = fibonacci_recursive(SEQUENCE_LENGTH - 1 , [0, 1])
+    print(fibonacci_list)
+
     # Measure performances of different solutions
     measure_performance()
