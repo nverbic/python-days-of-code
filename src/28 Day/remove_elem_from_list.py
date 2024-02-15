@@ -28,6 +28,9 @@
 
     5. Use list comprehension to remove the element with the index 5:
     [100, 101, 102, 103, 104, 106, 107, 108, 109]
+
+    6. Use filter() to remove the element with the index 5:
+    [100, 101, 102, 103, 104, 106, 107, 108, 109]
 '''
 
 import random
@@ -42,7 +45,7 @@ def remove_elem_pop(list_object, remove_index):
 
 def remove_elem(list_object, remove_index):
     '''Remove elem using remove() method '''
-    list_object.remove(remove_index)
+    list_object.remove(list_object[remove_index])
 
 def remove_elem_slicing(list_object, remove_index):
     '''Remove elem using slicing '''
@@ -77,8 +80,8 @@ if __name__ == '__main__':
 
     # Use shallow copy if the called method changes the original list
     numbers_copy = numbers.copy()
-    # Remove element using pop
-    remove_elem_pop(numbers_copy, item_index)
+    # Remove element using remove
+    remove_elem(numbers_copy, item_index)
     print(f"\n3. Use remove() to remove the element with the index {item_index}:\n{numbers_copy}")
 
     # Remove element using slicing
@@ -88,3 +91,7 @@ if __name__ == '__main__':
     # Remove element using list comprehension
     returned_list = remove_elem_list_comprehension(numbers, item_index)
     print(f"\n5. Use list comprehension to remove the element with the index {item_index}:\n{returned_list}")
+
+    # Remove element using the built-in filter() function (functional way)
+    returned_list = list(filter(lambda item: item != numbers[item_index], numbers))
+    print(f"\n6. Use filter() to remove the element with the index {item_index}:\n{returned_list}")
