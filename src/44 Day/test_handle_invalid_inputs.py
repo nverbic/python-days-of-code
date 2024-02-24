@@ -2,7 +2,7 @@
     Testcase for handle_invalid_inputs function
 
     Output:
-    Ran 3 tests in 0.002s
+    Ran 4 tests in 0.002s
 
     OK
 '''
@@ -25,6 +25,11 @@ class TestClass(unittest.TestCase):
 
     @patch('builtins.input', return_value = '1.5')
     def test_input_float(self, mock_input):
+        result = user_input_int()
+        self.assertEqual(result, None)
+
+    @patch('builtins.input', return_value = '')
+    def test_no_input(self, mock_input):
         result = user_input_int()
         self.assertEqual(result, None)
 
